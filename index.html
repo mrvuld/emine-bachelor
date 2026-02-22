@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Emine – Unser Stolz 💛</title>
+<title>EMINE – unser Stolz 💛</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 
@@ -11,14 +11,14 @@
 body{
 margin:0;
 font-family:'Inter',sans-serif;
-background:#fff6ee;
-color:#3a2e2a;
+background:#f6ede6;
+color:#3e2f2b;
 overflow-x:hidden;
 }
 
 section{
-padding:100px 20px;
-max-width:1100px;
+padding:120px 20px;
+max-width:1200px;
 margin:auto;
 text-align:center;
 }
@@ -33,17 +33,27 @@ display:flex;
 flex-direction:column;
 justify-content:center;
 align-items:center;
-background:linear-gradient(180deg,#fff6ee,#f8e1d6);
+background:linear-gradient(180deg,#f6ede6,#efe2d9);
+}
+
+.hero h1{
+font-size:48px;
 }
 
 .button{
-margin-top:20px;
-padding:12px 25px;
+margin-top:30px;
+padding:14px 30px;
 border:none;
-border-radius:30px;
+border-radius:40px;
 background:#d48a6a;
 color:white;
 cursor:pointer;
+font-size:16px;
+transition:0.3s;
+}
+
+.button:hover{
+background:#c17657;
 }
 
 .grid{
@@ -55,7 +65,7 @@ gap:40px;
 
 .flip-card{
 width:260px;
-height:330px;
+height:340px;
 perspective:1000px;
 cursor:pointer;
 }
@@ -64,7 +74,7 @@ cursor:pointer;
 position:relative;
 width:100%;
 height:100%;
-transition:transform 0.5s ease;
+transition:transform 0.4s ease;
 transform-style:preserve-3d;
 }
 
@@ -79,7 +89,8 @@ height:100%;
 backface-visibility:hidden;
 border-radius:20px;
 overflow:hidden;
-box-shadow:0 10px 25px rgba(0,0,0,0.1);
+box-shadow:0 15px 30px rgba(0,0,0,0.08);
+background:white;
 }
 
 .flip-front img{
@@ -89,13 +100,13 @@ object-fit:cover;
 }
 
 .flip-back{
-background:white;
 display:flex;
 justify-content:center;
 align-items:center;
-padding:20px;
+padding:25px;
 transform:rotateY(180deg);
-text-align:center;
+font-size:15px;
+line-height:1.5;
 }
 
 .music-btn{
@@ -105,21 +116,73 @@ right:20px;
 background:#d48a6a;
 color:white;
 border:none;
-padding:10px 18px;
+padding:12px 20px;
 border-radius:30px;
 cursor:pointer;
+z-index:1000;
 }
 
+/* FINALE */
+.final-card{
+width:420px;
+height:520px;
+margin:60px auto;
+perspective:1200px;
+cursor:pointer;
+transition:0.4s ease;
+}
+
+.final-card:hover{
+transform:scale(1.05);
+}
+
+.final-inner{
+position:relative;
+width:100%;
+height:100%;
+transition:transform 0.6s ease;
+transform-style:preserve-3d;
+}
+
+.final-card.flipped .final-inner{
+transform:rotateY(180deg) scale(1.03);
+}
+
+.final-front, .final-back{
+position:absolute;
+width:100%;
+height:100%;
+backface-visibility:hidden;
+border-radius:25px;
+overflow:hidden;
+box-shadow:0 25px 60px rgba(0,0,0,0.15);
+}
+
+.final-front img,
+.final-back img{
+width:100%;
+height:100%;
+object-fit:cover;
+}
+
+.final-back{
+transform:rotateY(180deg);
+}
+
+/* Konfetti */
 .confetti{
 position:fixed;
-width:8px;
-height:8px;
+width:10px;
+height:10px;
 top:-10px;
 animation:fall 3s linear forwards;
 }
 
 @keyframes fall{
-to{transform:translateY(100vh) rotate(720deg);opacity:0;}
+to{
+transform:translateY(100vh) rotate(720deg);
+opacity:0;
+}
 }
 </style>
 </head>
@@ -135,15 +198,15 @@ to{transform:translateY(100vh) rotate(720deg);opacity:0;}
 </button>
 
 <section class="hero">
-<h1>Manche studieren Lehramt…</h1>
-<p>Und manche sind einfach Emine.</p>
+<h1>Kapitel 1 – Drama Queen 👑</h1>
+<p>Von Abi zu Bachelor.</p>
 <button class="button" onclick="start()">Weiter</button>
 </section>
 
 <div id="content" style="display:none;">
 
 <section>
-<h2>🌿 Abi</h2>
+<h2>Abi Zeit ✨</h2>
 <div class="grid">
 
 <div class="flip-card" onclick="flip(this)">
@@ -156,14 +219,14 @@ to{transform:translateY(100vh) rotate(720deg);opacity:0;}
 <div class="flip-card" onclick="flip(this)">
 <div class="flip-inner">
 <div class="flip-front"><img src="abi2.jpg"></div>
-<div class="flip-back">Abi – aber mit Maske. Und trotzdem mit Haltung.</div>
+<div class="flip-back">Abi mit Maske – aber mit Stil.</div>
 </div>
 </div>
 
 <div class="flip-card" onclick="flip(this)">
 <div class="flip-inner">
 <div class="flip-front"><img src="abi3.jpg"></div>
-<div class="flip-back">„Ich lerne. Wirklich.“ (Innerlich Panik.)</div>
+<div class="flip-back">„Ich lerne wirklich.“ (innerlich Panik)</div>
 </div>
 </div>
 
@@ -178,41 +241,41 @@ to{transform:translateY(100vh) rotate(720deg);opacity:0;}
 </section>
 
 <section>
-<h2>📚 Uni & Drama</h2>
+<h2>Kapitel 2 – Uni & Drama 📚</h2>
 <div class="grid">
 
 <div class="flip-card" onclick="flip(this)">
 <div class="flip-inner">
 <div class="flip-front"><img src="uni1.jpg"></div>
-<div class="flip-back">Bio. Hass. Liebe. Wieder Hass.</div>
+<div class="flip-back">Bio – Hass Liebe. Mehr Hass. Dann wieder Liebe.</div>
 </div>
 </div>
 
 <div class="flip-card" onclick="flip(this)">
 <div class="flip-inner">
 <div class="flip-front"><img src="uni2.jpg"></div>
-<div class="flip-back">Literatur. Einfach nein.</div>
+<div class="flip-back">Literatur. Texte. Noch mehr Texte.</div>
 </div>
 </div>
 
 <div class="flip-card" onclick="flip(this)">
 <div class="flip-inner">
 <div class="flip-front"><img src="uni3.jpg"></div>
-<div class="flip-back">Last Minute? Ja. Aber mit System.</div>
+<div class="flip-back">Beides gelernt. Nicht immer last minute. Aber manchmal.</div>
 </div>
 </div>
 
 <div class="flip-card" onclick="flip(this)">
 <div class="flip-inner">
 <div class="flip-front"><img src="uni4.jpg"></div>
-<div class="flip-back">Snacks & Kaugummi = Überlebensstrategie.</div>
+<div class="flip-back">Snacks & Kaugummi = Überlebensmodus.</div>
 </div>
 </div>
 
 <div class="flip-card" onclick="flip(this)">
 <div class="flip-inner">
 <div class="flip-front"><img src="uni5.jpg"></div>
-<div class="flip-back">Meryem: Motivations-Polizei number 1.</div>
+<div class="flip-back">Meryem – number 1 Support.</div>
 </div>
 </div>
 
@@ -220,41 +283,41 @@ to{transform:translateY(100vh) rotate(720deg);opacity:0;}
 </section>
 
 <section>
-<h2>🌊 Zwischen Deadlines</h2>
+<h2>Kapitel 3 – Selfcare & Zukunft 🌿</h2>
 <div class="grid">
 
 <div class="flip-card" onclick="flip(this)">
 <div class="flip-inner">
 <div class="flip-front"><img src="moment1.jpg"></div>
-<div class="flip-back">Zwischen Deadlines und Selfcare.</div>
+<div class="flip-back">Selfcare lernen.</div>
 </div>
 </div>
 
 <div class="flip-card" onclick="flip(this)">
 <div class="flip-inner">
 <div class="flip-front"><img src="moment2.jpg"></div>
-<div class="flip-back">Serienmarathon als Therapie.</div>
-</div>
-</div>
-
-<div class="flip-card" onclick="flip(this)">
-<div class="flip-inner">
-<div class="flip-front"><img src="moment3.jpg"></div>
 <div class="flip-back">Zukunftspläne im Kopf.</div>
 </div>
 </div>
 
 <div class="flip-card" onclick="flip(this)">
 <div class="flip-inner">
-<div class="flip-front"><img src="moment4.jpg"></div>
+<div class="flip-front"><img src="moment3.jpg"></div>
 <div class="flip-back">Shopping Queen (regulierte Kaufsucht).</div>
 </div>
 </div>
 
 <div class="flip-card" onclick="flip(this)">
 <div class="flip-inner">
+<div class="flip-front"><img src="moment4.jpg"></div>
+<div class="flip-back">Serien = Drama Therapie.</div>
+</div>
+</div>
+
+<div class="flip-card" onclick="flip(this)">
+<div class="flip-inner">
 <div class="flip-front"><img src="moment5.jpg"></div>
-<div class="flip-back">Kolonya nie vergessen.</div>
+<div class="flip-back">Kolonya & MacBook = Starterpack.</div>
 </div>
 </div>
 
@@ -272,34 +335,34 @@ to{transform:translateY(100vh) rotate(720deg);opacity:0;}
 </div>
 </div>
 
-<div class="flip-card" onclick="flip(this)">
-<div class="flip-inner">
-<div class="flip-front"><img src="extra1.jpg"></div>
-<div class="flip-back">Sie priorisiert sich selbst.</div>
-</div>
-</div>
-
 </div>
 </section>
 
 <section>
-<h2>Und dann…</h2>
+<h2 style="font-size:38px;">Finale 💛</h2>
 
-<div class="flip-card" onclick="flip(this); celebrate();">
-<div class="flip-inner">
-<div class="flip-front"><img src="extra2.jpg"></div>
-<div class="flip-back"><img src="bachelor.jpg"></div>
+<div class="final-card" onclick="flip(this); celebrate();">
+<div class="final-inner">
+<div class="final-front">
+<img src="extra1.jpg">
+</div>
+<div class="final-back">
+<img src="bachelor.jpg">
 </div>
 </div>
+</div>
 
-<p>
-Wir waren schon stolz auf dich und sind jetzt noch stolzer,  
-dass du deinen Bachelor gemeistert hast!!  
-<br><br>
-<strong>EMINE: unser Stolz 💛</strong>
+<p style="margin-top:60px;font-size:22px;line-height:1.6;">
+Wir waren schon stolz auf dich und sind jetzt noch stolzer,<br>
+dass du deinen Bachelor gemeistert hast!!<br><br>
+<strong style="font-size:26px;">EMINE: unser Stolz 💛</strong>
 </p>
 
-<h3>Merve<br>Meryem<br>Ilayda</h3>
+<p style="margin-top:40px;font-size:18px;">
+Merve<br>
+Meryem<br>
+Ilayda
+</p>
 
 </section>
 
@@ -316,7 +379,7 @@ card.classList.toggle("flipped");
 }
 
 function celebrate(){
-for(let i=0;i<100;i++){
+for(let i=0;i<120;i++){
 let c=document.createElement("div");
 c.classList.add("confetti");
 c.style.left=Math.random()*100+"vw";
@@ -330,6 +393,7 @@ setTimeout(()=>c.remove(),3000);
 function toggleMusic(){
 let music=document.getElementById("bgMusic");
 let btn=document.getElementById("musicButton");
+music.volume=1;
 
 if(music.paused){
 music.play();
