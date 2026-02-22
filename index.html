@@ -8,7 +8,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 
 <style>
-
 body{
 margin:0;
 font-family:'Inter',sans-serif;
@@ -20,27 +19,27 @@ overflow:hidden;
 .section{
 width:100vw;
 height:100vh;
-display:flex;
+display:none;
 flex-direction:column;
 align-items:center;
 justify-content:center;
-position:absolute;
-transition:all 0.8s ease;
-opacity:0;
-transform:scale(0.95);
 padding:40px;
 box-sizing:border-box;
+text-align:center;
 }
 
 .section.active{
-opacity:1;
-transform:scale(1);
-z-index:1;
+display:flex;
+animation:fadeIn 0.8s ease;
+}
+
+@keyframes fadeIn{
+from{opacity:0; transform:scale(0.95);}
+to{opacity:1; transform:scale(1);}
 }
 
 h1,h2{
 font-family:'Playfair Display',serif;
-text-align:center;
 }
 
 button{
@@ -78,7 +77,7 @@ cursor:pointer;
 width:100%;
 height:100%;
 position:relative;
-transition:transform 0.5s cubic-bezier(.4,2,.3,1);
+transition:transform 0.5s ease;
 transform-style:preserve-3d;
 }
 
@@ -108,10 +107,18 @@ transform:rotateY(180deg);
 display:flex;
 align-items:center;
 justify-content:center;
-padding:20px;
-text-align:center;
+padding:25px;
+background:#fff9f2;
+}
+
+.note{
+background:#fffdf8;
+padding:15px;
+border-radius:12px;
+box-shadow:0 5px 15px rgba(0,0,0,0.1);
 font-size:14px;
-background:#fff7ef;
+line-height:1.4;
+font-style:italic;
 }
 
 .final-image{
@@ -120,7 +127,6 @@ height:520px;
 border-radius:20px;
 overflow:hidden;
 box-shadow:0 20px 50px rgba(0,0,0,0.25);
-transition:transform 1.5s ease;
 }
 
 .final-image img{
@@ -129,15 +135,19 @@ height:100%;
 object-fit:cover;
 }
 
-.final-image:hover{
-transform:scale(1.05);
+.gold-glow{
+font-size:34px;
+background:linear-gradient(45deg,#d4af37,#f7e7a1,#d4af37);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+text-shadow:0 0 15px rgba(212,175,55,0.5);
+margin-top:40px;
 }
 
 .confetti{
 position:fixed;
 width:10px;
 height:10px;
-background:red;
 top:-10px;
 animation:fall 3s linear forwards;
 }
@@ -150,15 +160,14 @@ to{transform:translateY(100vh) rotate(360deg);}
 position:fixed;
 top:20px;
 right:20px;
-z-index:5;
+z-index:10;
 }
-
 </style>
 </head>
 
 <body>
 
-<button class="music-btn" onclick="playMusic()">🎵 Musik</button>
+<button class="music-btn" onclick="startMusic()">🎵 Musik</button>
 
 <audio id="bgMusic" loop>
 <source src="music.mpeg" type="audio/mpeg">
@@ -166,56 +175,82 @@ z-index:5;
 
 <div class="section active" id="s1">
 <h1>EMINE.</h1>
-<p>Unser Stolz. Unser Herz. Unsere Drama Queen.</p>
+<p>Unser Stolz. Unsere Drama Queen.</p>
 <button onclick="next()">Weiter</button>
 </div>
 
 <div class="section" id="s2">
-<h2>Kapitel 1 – Starterpakt</h2>
-<p>Kolonya & Kaugummi dürfen niemals fehlen.<br>
-MacBook ist ihr größter Schatz.<br>
-Shopping Queen (regulierte Kaufsucht).<br>
-Serien = ihr ein und alles (mit sehr viel Drama).<br>
-Mit ihr fehlt nie das Lachen.</p>
+<h2>Abi Zeit ✨</h2>
+<div class="gallery">
+
+<div class="card" onclick="flip(this)">
+<div class="card-inner">
+<div class="card-front"><img src="abi1.jpg"></div>
+<div class="card-back"><div class="note">Drama Queen, aber mit Lernzetteln.</div></div>
+</div>
+</div>
+
+<div class="card" onclick="flip(this)">
+<div class="card-inner">
+<div class="card-front"><img src="abi2.jpg"></div>
+<div class="card-back"><div class="note">Abi, aber main character.</div></div>
+</div>
+</div>
+
+<div class="card" onclick="flip(this)">
+<div class="card-inner">
+<div class="card-front"><img src="abi3.jpg"></div>
+<div class="card-back"><div class="note">„Ich schaffe das.“ (Innerlich: absoluter Stress.)</div></div>
+</div>
+</div>
+
+<div class="card" onclick="flip(this)">
+<div class="card-inner">
+<div class="card-front"><img src="abi4.jpg"></div>
+<div class="card-back"><div class="note">Plot Twist: Es war nur der Anfang.</div></div>
+</div>
+</div>
+
+</div>
 <button onclick="next()">Weiter</button>
 </div>
 
 <div class="section" id="s3">
-<h2>Kapitel 2 – Uni & Drama</h2>
+<h2>Uni & Drama 📚</h2>
 <div class="gallery">
 
 <div class="card" onclick="flip(this)">
 <div class="card-inner">
 <div class="card-front"><img src="uni1.jpg"></div>
-<div class="card-back">Drama Queen Modus aktiviert 👑</div>
+<div class="card-back"><div class="note">Bio war aufwändig. Sie war aufwändiger.</div></div>
 </div>
 </div>
 
 <div class="card" onclick="flip(this)">
 <div class="card-inner">
 <div class="card-front"><img src="uni2.jpg"></div>
-<div class="card-back">Bio = Hassliebe. Aber sie hat es gerockt.</div>
+<div class="card-back"><div class="note">„Ich lese das später.“ (Sie las es später. Kurz vor Abgabe.)</div></div>
 </div>
 </div>
 
 <div class="card" onclick="flip(this)">
 <div class="card-inner">
 <div class="card-front"><img src="uni3.jpg"></div>
-<div class="card-back">2. Etage Aufzug 🏃🏽‍♀️💨</div>
+<div class="card-back"><div class="note">2. Etage Aufzug 🏃🏽‍♀️💨</div></div>
 </div>
 </div>
 
 <div class="card" onclick="flip(this)">
 <div class="card-inner">
 <div class="card-front"><img src="uni4.jpg"></div>
-<div class="card-back">Die eine Hausarbeit. Erst durchgefallen. Dozentin krank. Chaos. Und trotzdem gewonnen.</div>
+<div class="card-back"><div class="note">Die eine Hausarbeit. Erst durchgefallen. Dozentin krank. Chaos. Und trotzdem gewonnen.</div></div>
 </div>
 </div>
 
 <div class="card" onclick="flip(this)">
 <div class="card-inner">
 <div class="card-front"><img src="uni5.jpg"></div>
-<div class="card-back">Literatur – Endgegner.</div>
+<div class="card-back"><div class="note">Ohne Essen geht nichts.</div></div>
 </div>
 </div>
 
@@ -224,16 +259,59 @@ Mit ihr fehlt nie das Lachen.</p>
 </div>
 
 <div class="section" id="s4">
-<h2>Kapitel 3 – Selfcare & Zukunft</h2>
-<p>Selfcare. Sich selbst priorisieren. Zukunftspläne.<br>
-Wir waren schon stolz auf dich und sind jetzt noch stolzer, dass du deinen Bachelor gemeistert hast!!</p>
+<h2>Emine Energy 🌿</h2>
+<div class="gallery">
+
+<div class="card" onclick="flip(this)">
+<div class="card-inner">
+<div class="card-front"><img src="moment1.jpg"></div>
+<div class="card-back"><div class="note">Zukunftspläne im Kopf. Ruhe im Herzen.</div></div>
+</div>
+</div>
+
+<div class="card" onclick="flip(this)">
+<div class="card-inner">
+<div class="card-front"><img src="moment2.jpg"></div>
+<div class="card-back"><div class="note">Meryem, Nummer 1 Motivation.</div></div>
+</div>
+</div>
+
+<div class="card" onclick="flip(this)">
+<div class="card-inner">
+<div class="card-front"><img src="moment3.jpg"></div>
+<div class="card-back"><div class="note">Therapie? Nein, Freunde!</div></div>
+</div>
+</div>
+
+<div class="card" onclick="flip(this)">
+<div class="card-inner">
+<div class="card-front"><img src="moment4.jpg"></div>
+<div class="card-back"><div class="note">Wenn sie sagt: nur eine Folge.</div></div>
+</div>
+</div>
+
+<div class="card" onclick="flip(this)">
+<div class="card-inner">
+<div class="card-front"><img src="moment5.jpg"></div>
+<div class="card-back"><div class="note">Main Character Energy.</div></div>
+</div>
+</div>
+
+<div class="card" onclick="flip(this)">
+<div class="card-inner">
+<div class="card-front"><img src="moment6.jpg"></div>
+<div class="card-back"><div class="note">Mit ihr fehlt nie das Lachen.</div></div>
+</div>
+</div>
+
+</div>
 <button onclick="next()">Finale</button>
 </div>
 
 <div class="section" id="s5">
-<h2>EMINE: unser Stolz</h2>
+<h2 class="gold-glow">EMINE: unser Stolz</h2>
 
-<div class="card" onclick="flip(this)">
+<div class="card" onclick="flip(this); confetti();">
 <div class="card-inner">
 <div class="card-front final-image">
 <img src="extra1.jpg">
@@ -244,11 +322,24 @@ Wir waren schon stolz auf dich und sind jetzt noch stolzer, dass du deinen Bache
 </div>
 </div>
 
-<button onclick="confetti()">❤️ Für immer stolz</button>
+<p style="margin-top:40px;font-size:18px;">
+Diese Drama Queen hat einfach ihren Bachelor gemacht.
+</p>
+
+<p style="margin-top:20px;font-size:18px;">
+Wir waren schon stolz auf dich<br>
+und sind jetzt noch stolzer.
+</p>
+
+<p style="margin-top:40px;">
+Merve<br>
+Meryem<br>
+Ilayda
+</p>
+
 </div>
 
 <script>
-
 let current=1;
 function next(){
 document.getElementById("s"+current).classList.remove("active");
@@ -260,7 +351,7 @@ function flip(card){
 card.classList.toggle("flip");
 }
 
-function playMusic(){
+function startMusic(){
 document.getElementById("bgMusic").play();
 }
 
@@ -269,12 +360,11 @@ for(let i=0;i<100;i++){
 let c=document.createElement("div");
 c.classList.add("confetti");
 c.style.left=Math.random()*100+"vw";
-c.style.background=["#d6a77a","#b7865e","#f7d7b5","#c48c5a"][Math.floor(Math.random()*4)];
+c.style.background=["#d6a77a","#f7e7a1","#e8c9a0","#b7865e"][Math.floor(Math.random()*4)];
 document.body.appendChild(c);
 setTimeout(()=>{c.remove();},3000);
 }
 }
-
 </script>
 
 </body>
