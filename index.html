@@ -11,19 +11,20 @@
 body{
 margin:0;
 font-family:'Inter',sans-serif;
-background:linear-gradient(180deg,#f5eee6,#efe2d4);
+background:linear-gradient(180deg,#f6efe7,#efe2d4);
 color:#3e2f25;
-overflow:hidden;
+overflow-x:hidden;
 }
 
+/* SECTIONS */
 .section{
 width:100vw;
-height:100vh;
+min-height:100vh;
 display:none;
 flex-direction:column;
 align-items:center;
 justify-content:center;
-padding:40px;
+padding:60px 40px;
 box-sizing:border-box;
 text-align:center;
 }
@@ -34,50 +35,70 @@ animation:fadeIn 0.8s ease;
 }
 
 @keyframes fadeIn{
-from{opacity:0; transform:scale(0.95);}
+from{opacity:0; transform:scale(0.97);}
 to{opacity:1; transform:scale(1);}
 }
 
+/* TEXT */
 h1,h2{
 font-family:'Playfair Display',serif;
+margin-bottom:10px;
 }
 
+.hint{
+font-size:15px;
+color:#b7865e;
+margin-bottom:35px;
+font-family:'Playfair Display',serif;
+opacity:0.8;
+}
+
+/* BUTTON */
 button{
 background:#d6a77a;
 border:none;
-padding:12px 25px;
+padding:12px 28px;
 border-radius:30px;
 color:white;
 font-weight:500;
 cursor:pointer;
-margin-top:30px;
+margin-top:45px;
 transition:all 0.3s ease;
 }
 
 button:hover{
 background:#b7865e;
-transform:scale(1.05);
+transform:scale(1.07);
 }
 
+/* GALLERY */
 .gallery{
 display:flex;
-gap:20px;
+gap:30px;
 flex-wrap:wrap;
 justify-content:center;
+max-width:1100px;
 }
 
+/* CARD */
 .card{
-width:260px;
-height:340px;
+width:240px;
+height:320px;
 perspective:1000px;
 cursor:pointer;
+animation:float 6s ease-in-out infinite;
+}
+
+@keyframes float{
+0%,100%{transform:translateY(0px);}
+50%{transform:translateY(-6px);}
 }
 
 .card-inner{
 width:100%;
 height:100%;
 position:relative;
-transition:transform 0.5s ease;
+transition:transform 0.6s cubic-bezier(.4,2,.3,1);
 transform-style:preserve-3d;
 }
 
@@ -91,7 +112,7 @@ width:100%;
 height:100%;
 backface-visibility:hidden;
 border-radius:18px;
-box-shadow:0 15px 35px rgba(0,0,0,0.15);
+box-shadow:0 15px 40px rgba(0,0,0,0.12);
 overflow:hidden;
 background:white;
 }
@@ -100,6 +121,11 @@ background:white;
 width:100%;
 height:100%;
 object-fit:cover;
+transition:transform 0.4s ease;
+}
+
+.card:hover .card-front img{
+transform:scale(1.04);
 }
 
 .card-back{
@@ -107,26 +133,28 @@ transform:rotateY(180deg);
 display:flex;
 align-items:center;
 justify-content:center;
-padding:25px;
-background:#fff9f2;
+padding:20px;
+background:#fffaf4;
 }
 
+/* NOTE STYLE */
 .note{
-background:#fffdf8;
-padding:15px;
-border-radius:12px;
-box-shadow:0 5px 15px rgba(0,0,0,0.1);
+background:#fffdf9;
+padding:16px;
+border-radius:14px;
+box-shadow:0 6px 18px rgba(0,0,0,0.08);
 font-size:14px;
-line-height:1.4;
 font-style:italic;
+line-height:1.4;
 }
 
+/* FINAL IMAGE */
 .final-image{
-width:420px;
-height:520px;
-border-radius:20px;
+width:430px;
+height:540px;
+border-radius:24px;
 overflow:hidden;
-box-shadow:0 20px 50px rgba(0,0,0,0.25);
+box-shadow:0 25px 70px rgba(0,0,0,0.25);
 }
 
 .final-image img{
@@ -135,27 +163,33 @@ height:100%;
 object-fit:cover;
 }
 
+/* GOLD GLOW */
 .gold-glow{
-font-size:34px;
+font-size:38px;
 background:linear-gradient(45deg,#d4af37,#f7e7a1,#d4af37);
 -webkit-background-clip:text;
 -webkit-text-fill-color:transparent;
-text-shadow:0 0 15px rgba(212,175,55,0.5);
-margin-top:40px;
+text-shadow:0 0 25px rgba(212,175,55,0.6);
+margin-bottom:35px;
 }
 
+/* CONFETTI */
 .confetti{
 position:fixed;
 width:10px;
 height:10px;
+border-radius:50%;
 top:-10px;
-animation:fall 3s linear forwards;
+animation:fall 4s linear forwards;
+opacity:0.9;
+filter:blur(0.3px);
 }
 
 @keyframes fall{
-to{transform:translateY(100vh) rotate(360deg);}
+to{transform:translateY(100vh) rotate(720deg);}
 }
 
+/* MUSIC BUTTON */
 .music-btn{
 position:fixed;
 top:20px;
@@ -173,141 +207,123 @@ z-index:10;
 <source src="music.mpeg" type="audio/mpeg">
 </audio>
 
+<!-- CAMERA SOUND (no extra file) -->
+<audio id="cameraSound">
+<source src="data:audio/wav;base64,UklGRlQAAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YUAAAAA=" type="audio/wav">
+</audio>
+
+<!-- START -->
 <div class="section active" id="s1">
 <h1>EMINE.</h1>
 <p>Unser Stolz. Unsere Drama Queen.</p>
 <button onclick="next()">Weiter</button>
 </div>
 
+<!-- ABI -->
 <div class="section" id="s2">
 <h2>Abi Zeit ✨</h2>
+<p class="hint">Klick auf die Bilder ✨</p>
 <div class="gallery">
-
-<div class="card" onclick="flip(this)">
-<div class="card-inner">
+<div class="card" onclick="flip(this)"><div class="card-inner">
 <div class="card-front"><img src="abi1.jpg"></div>
 <div class="card-back"><div class="note">Drama Queen, aber mit Lernzetteln.</div></div>
-</div>
-</div>
+</div></div>
 
-<div class="card" onclick="flip(this)">
-<div class="card-inner">
+<div class="card" onclick="flip(this)"><div class="card-inner">
 <div class="card-front"><img src="abi2.jpg"></div>
 <div class="card-back"><div class="note">Abi, aber main character.</div></div>
-</div>
-</div>
+</div></div>
 
-<div class="card" onclick="flip(this)">
-<div class="card-inner">
+<div class="card" onclick="flip(this)"><div class="card-inner">
 <div class="card-front"><img src="abi3.jpg"></div>
 <div class="card-back"><div class="note">„Ich schaffe das.“ (Innerlich: absoluter Stress.)</div></div>
-</div>
-</div>
+</div></div>
 
-<div class="card" onclick="flip(this)">
-<div class="card-inner">
+<div class="card" onclick="flip(this)"><div class="card-inner">
 <div class="card-front"><img src="abi4.jpg"></div>
 <div class="card-back"><div class="note">Plot Twist: Es war nur der Anfang.</div></div>
-</div>
-</div>
-
+</div></div>
 </div>
 <button onclick="next()">Weiter</button>
 </div>
 
+<!-- UNI -->
 <div class="section" id="s3">
 <h2>Uni & Drama 📚</h2>
+<p class="hint">Klick auf die Bilder ✨</p>
 <div class="gallery">
-
-<div class="card" onclick="flip(this)">
-<div class="card-inner">
+<div class="card" onclick="flip(this)"><div class="card-inner">
 <div class="card-front"><img src="uni1.jpg"></div>
 <div class="card-back"><div class="note">Bio war aufwändig. Sie war aufwändiger.</div></div>
-</div>
-</div>
+</div></div>
 
-<div class="card" onclick="flip(this)">
-<div class="card-inner">
+<div class="card" onclick="flip(this)"><div class="card-inner">
 <div class="card-front"><img src="uni2.jpg"></div>
 <div class="card-back"><div class="note">„Ich lese das später.“ (Sie las es später. Kurz vor Abgabe.)</div></div>
-</div>
-</div>
+</div></div>
 
-<div class="card" onclick="flip(this)">
-<div class="card-inner">
+<div class="card" onclick="flip(this)"><div class="card-inner">
 <div class="card-front"><img src="uni3.jpg"></div>
 <div class="card-back"><div class="note">2. Etage Aufzug 🏃🏽‍♀️💨</div></div>
-</div>
-</div>
+</div></div>
 
-<div class="card" onclick="flip(this)">
-<div class="card-inner">
+<div class="card" onclick="flip(this)"><div class="card-inner">
 <div class="card-front"><img src="uni4.jpg"></div>
 <div class="card-back"><div class="note">Die eine Hausarbeit. Erst durchgefallen. Dozentin krank. Chaos. Und trotzdem gewonnen.</div></div>
-</div>
-</div>
+</div></div>
 
-<div class="card" onclick="flip(this)">
-<div class="card-inner">
+<div class="card" onclick="flip(this)"><div class="card-inner">
 <div class="card-front"><img src="uni5.jpg"></div>
 <div class="card-back"><div class="note">Ohne Essen geht nichts.</div></div>
-</div>
-</div>
-
+</div></div>
 </div>
 <button onclick="next()">Weiter</button>
 </div>
 
+<!-- MOMENTE -->
 <div class="section" id="s4">
 <h2>Emine Energy 🌿</h2>
+<p class="hint">Klick auf die Bilder ✨</p>
 <div class="gallery">
-
-<div class="card" onclick="flip(this)">
-<div class="card-inner">
+<div class="card" onclick="flip(this)"><div class="card-inner">
 <div class="card-front"><img src="moment1.jpg"></div>
 <div class="card-back"><div class="note">Zukunftspläne im Kopf. Ruhe im Herzen.</div></div>
-</div>
-</div>
+</div></div>
 
-<div class="card" onclick="flip(this)">
-<div class="card-inner">
+<div class="card" onclick="flip(this)"><div class="card-inner">
 <div class="card-front"><img src="moment2.jpg"></div>
 <div class="card-back"><div class="note">Meryem, Nummer 1 Motivation.</div></div>
-</div>
-</div>
+</div></div>
 
-<div class="card" onclick="flip(this)">
-<div class="card-inner">
+<div class="card" onclick="flip(this)"><div class="card-inner">
 <div class="card-front"><img src="moment3.jpg"></div>
 <div class="card-back"><div class="note">Therapie? Nein, Freunde!</div></div>
-</div>
-</div>
+</div></div>
 
-<div class="card" onclick="flip(this)">
-<div class="card-inner">
+<div class="card" onclick="flip(this)"><div class="card-inner">
 <div class="card-front"><img src="moment4.jpg"></div>
 <div class="card-back"><div class="note">Wenn sie sagt: nur eine Folge.</div></div>
-</div>
-</div>
+</div></div>
 
-<div class="card" onclick="flip(this)">
-<div class="card-inner">
+<div class="card" onclick="flip(this)"><div class="card-inner">
 <div class="card-front"><img src="moment5.jpg"></div>
 <div class="card-back"><div class="note">Main Character Energy.</div></div>
-</div>
-</div>
+</div></div>
 
-<div class="card" onclick="flip(this)">
-<div class="card-inner">
+<div class="card" onclick="flip(this)"><div class="card-inner">
 <div class="card-front"><img src="moment6.jpg"></div>
 <div class="card-back"><div class="note">Mit ihr fehlt nie das Lachen.</div></div>
-</div>
-</div>
+</div></div>
 
+<div class="card" onclick="flip(this)"><div class="card-inner">
+<div class="card-front"><img src="moment7.jpg"></div>
+<div class="card-back"><div class="note">Noch mehr Emine Energy ✨</div></div>
+</div></div>
 </div>
 <button onclick="next()">Finale</button>
 </div>
 
+<!-- FINALE -->
 <div class="section" id="s5">
 <h2 class="gold-glow">EMINE: unser Stolz</h2>
 
@@ -332,11 +348,8 @@ und sind jetzt noch stolzer.
 </p>
 
 <p style="margin-top:40px;">
-Merve<br>
-Meryem<br>
-Ilayda
+Merve<br>Meryem<br>Ilayda
 </p>
-
 </div>
 
 <script>
@@ -349,6 +362,9 @@ document.getElementById("s"+current).classList.add("active");
 
 function flip(card){
 card.classList.toggle("flip");
+const sound=document.getElementById("cameraSound");
+sound.currentTime=0;
+sound.play();
 }
 
 function startMusic(){
@@ -356,13 +372,13 @@ document.getElementById("bgMusic").play();
 }
 
 function confetti(){
-for(let i=0;i<100;i++){
+for(let i=0;i<120;i++){
 let c=document.createElement("div");
 c.classList.add("confetti");
 c.style.left=Math.random()*100+"vw";
-c.style.background=["#d6a77a","#f7e7a1","#e8c9a0","#b7865e"][Math.floor(Math.random()*4)];
+c.style.background=["#f7e7a1","#d6a77a","#f4c6c6","#b7865e"][Math.floor(Math.random()*4)];
 document.body.appendChild(c);
-setTimeout(()=>{c.remove();},3000);
+setTimeout(()=>{c.remove();},4000);
 }
 }
 </script>
