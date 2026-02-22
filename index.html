@@ -167,7 +167,7 @@ pointer-events:none;
 <button class="music-btn" onclick="startMusic()">🎵 Musik</button>
 
 <audio id="bgMusic" preload="auto" loop>
-<source src="music.mp3" type="audio/mpeg">
+<source src="music.mpeg" type="audio/mpeg">
 </audio>
 
 <!-- START -->
@@ -197,11 +197,55 @@ pointer-events:none;
 <div class="arrow" onclick="nextImage('abi')">→</div>
 </div>
 
-<button onclick="showSection(3)">Finale</button>
+<button onclick="showSection(3)">Weiter</button>
+</div>
+
+<!-- UNI -->
+<div class="section" id="s3">
+<h2>Uni & Drama 📚</h2>
+<p class="hint">Klick auf das Bild für Kommentare ✨</p>
+<p class="hint">Benutze ← → um durch die Galerie zu gehen</p>
+
+<div class="gallery">
+<div class="arrow" onclick="prevImage('uni')">←</div>
+
+<div class="viewer" onclick="flip(this)">
+<div class="viewer-inner">
+<div class="front"><img id="uniImg"></div>
+<div class="back"><div class="note" id="uniText"></div></div>
+</div>
+</div>
+
+<div class="arrow" onclick="nextImage('uni')">→</div>
+</div>
+
+<button onclick="showSection(4)">Weiter</button>
+</div>
+
+<!-- MOMENTS -->
+<div class="section" id="s4">
+<h2>Emine Energy 🌿</h2>
+<p class="hint">Klick auf das Bild für Kommentare ✨</p>
+<p class="hint">Benutze ← → um durch die Galerie zu gehen</p>
+
+<div class="gallery">
+<div class="arrow" onclick="prevImage('moment')">←</div>
+
+<div class="viewer" onclick="flip(this)">
+<div class="viewer-inner">
+<div class="front"><img id="momentImg"></div>
+<div class="back"><div class="note" id="momentText"></div></div>
+</div>
+</div>
+
+<div class="arrow" onclick="nextImage('moment')">→</div>
+</div>
+
+<button onclick="showSection(5)">Finale</button>
 </div>
 
 <!-- FINALE -->
-<div class="section" id="s3">
+<div class="section" id="s5">
 <h2 class="gold">EMINE: unser Stolz</h2>
 
 <div class="viewer" onclick="flip(this); confetti();">
@@ -236,6 +280,30 @@ texts:[
 "Plot Twist: Es war nur der Anfang."
 ],
 index:0
+},
+uni:{
+images:["uni1.jpg","uni2.jpg","uni3.jpg","uni4.jpg","uni5.jpg"],
+texts:[
+"Bio war aufwändig. Sie war aufwändiger.",
+"„Ich lese das später.“ (Kurz vor Abgabe gelesen.)",
+"2. Etage Aufzug 🏃🏽‍♀️💨",
+"Die eine Hausarbeit. Durchgefallen. Dozentin krank. Trotzdem gewonnen.",
+"Ohne Essen geht nichts."
+],
+index:0
+},
+moment:{
+images:["moment1.jpg","moment2.jpg","moment3.jpg","moment4.jpg","moment5.jpg","moment6.jpg","moment7.jpg"],
+texts:[
+"Zukunftspläne im Kopf. Ruhe im Herzen.",
+"Meryem, Nummer 1 Motivation.",
+"Therapie? Nein, Freunde!",
+"Wenn sie sagt: nur eine Folge.",
+"Main Character Energy.",
+"Mit ihr fehlt nie das Lachen.",
+"Noch mehr Emine Energy ✨"
+],
+index:0
 }
 };
 
@@ -264,7 +332,7 @@ card.classList.toggle("flip");
 }
 
 function startMusic(){
-document.getElementById("bgMusic").play();
+document.getElementById("bgMusic").play().catch(()=>{});
 }
 
 function confetti(){
@@ -291,6 +359,8 @@ setTimeout(()=>c.remove(),1600);
 }
 
 updateGallery("abi");
+updateGallery("uni");
+updateGallery("moment");
 </script>
 
 </body>
