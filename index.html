@@ -58,8 +58,8 @@ margin-top:30px;
 font-size:40px;
 cursor:pointer;
 color:#b7865e;
-user-select:none;
 transition:0.3s;
+user-select:none;
 }
 
 .arrow:hover{
@@ -70,14 +70,6 @@ color:#8c5e3c;
 .viewer{
 width:420px;
 height:540px;
-perspective:1000px;
-cursor:pointer;
-}
-
-.final-viewer{
-width:520px;
-height:650px;
-margin:40px auto;
 perspective:1000px;
 cursor:pointer;
 }
@@ -146,13 +138,40 @@ transform:scale(1.07);
 }
 
 .gold{
-font-size:42px;
+font-size:44px;
 background:linear-gradient(45deg,#d4af37,#f7e7a1,#d4af37);
 -webkit-background-clip:text;
 -webkit-text-fill-color:transparent;
 text-shadow:0 0 30px rgba(212,175,55,0.7);
 }
 
+/* Finale */
+.final-wrapper{
+display:flex;
+justify-content:center;
+align-items:center;
+width:100%;
+margin-top:40px;
+}
+
+.final-viewer{
+width:560px;
+height:700px;
+perspective:1000px;
+cursor:pointer;
+}
+
+.final-text{
+margin-top:30px;
+font-size:18px;
+}
+
+.final-names{
+margin-top:35px;
+font-weight:500;
+}
+
+/* Musik */
 .music-btn{
 position:fixed;
 top:20px;
@@ -160,10 +179,9 @@ right:20px;
 z-index:10;
 }
 
+/* Konfetti */
 .confetti{
 position:fixed;
-width:10px;
-height:10px;
 border-radius:50%;
 pointer-events:none;
 }
@@ -256,53 +274,45 @@ pointer-events:none;
 <div class="section" id="s5">
 <h2 class="gold">EMINE: unser Stolz</h2>
 
+<div class="final-wrapper">
 <div class="final-viewer viewer" onclick="flip(this); confettiRain();">
 <div class="viewer-inner">
 <div class="front"><img src="extra1.jpg"></div>
 <div class="back"><img src="bachelor.jpg" style="width:100%;height:100%;object-fit:cover;"></div>
 </div>
 </div>
+</div>
 
-<p style="margin-top:30px;">
+<p class="final-text">
 Diese Drama Queen hat einfach ihren Bachelor gemacht.
 </p>
 
-<p style="margin-top:15px;">
+<p class="final-text">
 Wir waren schon stolz auf dich<br>
 und sind jetzt noch stolzer.
 </p>
 
-<p style="margin-top:30px;">
+<p class="final-names">
 Merve<br>Meryem<br>Ilayda
 </p>
 </div>
 
 <script>
 const galleries={
-abi:{
-images:["abi1.jpg","abi2.jpg","abi3.jpg","abi4.jpg"],
-texts:[
+abi:{images:["abi1.jpg","abi2.jpg","abi3.jpg","abi4.jpg"],texts:[
 "Drama Queen, aber mit Lernzetteln.",
 "Abi, aber main character.",
 "„Ich schaffe das.“ (Innerlich: absoluter Stress.)",
 "Plot Twist: Es war nur der Anfang."
-],
-index:0
-},
-uni:{
-images:["uni1.jpg","uni2.jpg","uni3.jpg","uni4.jpg","uni5.jpg"],
-texts:[
+],index:0},
+uni:{images:["uni1.jpg","uni2.jpg","uni3.jpg","uni4.jpg","uni5.jpg"],texts:[
 "Bio war aufwändig. Sie war aufwändiger.",
 "„Ich lese das später.“ (Kurz vor Abgabe gelesen.)",
 "2. Etage Aufzug 🏃🏽‍♀️💨",
 "Die eine Hausarbeit. Durchgefallen. Dozentin krank. Trotzdem gewonnen.",
 "Ohne Essen geht nichts."
-],
-index:0
-},
-moment:{
-images:["moment1.jpg","moment2.jpg","moment3.jpg","moment4.jpg","moment5.jpg","moment6.jpg","moment7.jpg"],
-texts:[
+],index:0},
+moment:{images:["moment1.jpg","moment2.jpg","moment3.jpg","moment4.jpg","moment5.jpg","moment6.jpg","moment7.jpg"],texts:[
 "Zukunftspläne im Kopf. Ruhe im Herzen.",
 "Meryem, Nummer 1 Motivation.",
 "Therapie? Nein, Freunde!",
@@ -310,9 +320,7 @@ texts:[
 "Main Character Energy.",
 "Mit ihr fehlt nie das Lachen.",
 "Noch mehr Emine Energy ✨"
-],
-index:0
-}
+],index:0}
 };
 
 function updateGallery(type){
@@ -344,24 +352,26 @@ document.getElementById("bgMusic").play().catch(()=>{});
 }
 
 function confettiRain(){
-for(let i=0;i<400;i++){
+for(let i=0;i<700;i++){
 let c=document.createElement("div");
 c.classList.add("confetti");
 c.style.background=["#f7e7a1","#d6a77a","#f4c6c6","#b7865e","#ffffff"][Math.floor(Math.random()*5)];
+c.style.width=Math.random()*8+6+"px";
+c.style.height=c.style.width;
 c.style.left=Math.random()*100+"vw";
-c.style.top="-20px";
+c.style.top="-50px";
 document.body.appendChild(c);
 
-let fall=Math.random()*800+600;
-let rotate=Math.random()*720;
+let fall=window.innerHeight+200;
+let rotate=Math.random()*1080;
 
 c.animate([
-{transform:`translateY(0px) rotate(0deg)`, opacity:1},
-{transform:`translateY(${fall}px) rotate(${rotate}deg)`, opacity:0}
+{transform:`translateY(0px) rotate(0deg)`,opacity:1},
+{transform:`translateY(${fall}px) rotate(${rotate}deg)`,opacity:0}
 ],
-{duration:2500+Math.random()*1000, easing:"ease-out"});
+{duration:3000+Math.random()*1500,easing:"ease-out"});
 
-setTimeout(()=>c.remove(),3500);
+setTimeout(()=>c.remove(),4500);
 }
 }
 
