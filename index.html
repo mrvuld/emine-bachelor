@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Emine – Unser Stolz 💛</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+:root{
+--beige:#fff6ee;
+--terracotta:#d48a6a;
+--apricot:#f5c6aa;
+--sage:#8da88b;
+--text:#3a2e2a;
+}
+
+body{
+margin:0;
+font-family:'Inter',sans-serif;
+background:var(--beige);
+color:var(--text);
+overflow-x:hidden;
+scroll-behavior:smooth;
+}
+
+section{
+padding:120px 20px;
+max-width:1100px;
+margin:auto;
+text-align:center;
+}
+
+h1,h2{
+font-family:'Playfair Display',serif;
+}
+
+.hero{
+height:100vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+background:linear-gradient(180deg,var(--beige),#f8e1d6);
+}
+
+.button{
+margin-top:30px;
+padding:14px 30px;
+border:none;
+border-radius:40px;
+background:var(--terracotta);
+color:white;
+cursor:pointer;
+transition:0.3s;
+}
+
+.button:hover{
+transform:translateY(-3px);
+box-shadow:0 10px 20px rgba(0,0,0,0.1);
+}
+
+.music-btn{
+position:fixed;
+bottom:20px;
+right:20px;
+background:var(--terracotta);
+color:white;
+border:none;
+padding:12px 20px;
+border-radius:30px;
+cursor:pointer;
+z-index:1000;
+}
+
+.grid{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:50px;
+}
+
+/* Flip Card */
+
+.flip-card{
+background:transparent;
+width:260px;
+height:330px;
+perspective:1000px;
+cursor:pointer;
+}
+
+.flip-inner{
+position:relative;
+width:100%;
+height:100%;
+transition:transform 0.5s ease;
+transform-style:preserve-3d;
+}
+
+.flip-card.flipped .flip-inner{
+transform:rotateY(180deg);
+}
+
+.flip-front, .flip-back{
+position:absolute;
+width:100%;
+height:100%;
+backface-visibility:hidden;
+border-radius:20px;
+box-shadow:0 15px 35px rgba(0,0,0,0.1);
+overflow:hidden;
+}
+
+.flip-front img{
+width:100%;
+height:100%;
+object-fit:cover;
+}
+
+.flip-back{
+background:white;
+display:flex;
+justify-content:center;
+align-items:center;
+padding:20px;
+transform:rotateY(180deg);
+font-size:15px;
+line-height:1.5;
+}
+
+.final{
+background:linear-gradient(180deg,#f8e1d6,var(--apricot));
+}
+
+.confetti{
+position:fixed;
+width:8px;
+height:8px;
+top:-10px;
+animation:fall 3s linear forwards;
+}
+
+@keyframes fall{
+to{transform:translateY(100vh) rotate(720deg);opacity:0;}
+}
+</style>
+</head>
+
+<body>
+
+<!-- MUSIK -->
+<audio id="bgMusic" preload="auto">
+<source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<button class="music-btn" onclick="toggleMusic()" id="musicButton">
+🎵 Musik starten
+</button>
+
+<section class="hero">
+<h1>Manche studieren Lehramt…</h1>
+<p>Und manche sind einfach Emine.</p>
+<button class="button" onclick="start()">Weiter</button>
+</section>
+
+<div id="content" style="display:none;">
+
+<section>
+<h2>🌿 Kapitel 1 – Abi</h2>
+<div class="grid">
+${["abi1","abi2","abi3","abi4"].map((img,i)=>`
+<div class="flip-card" onclick="flip(this)">
+<div class="flip-inner">
+<div class="flip-front"><img src="${img}.jpg"></div>
+<div class="flip-back">${[
+"17 Jahre alt. Drama Queen in Ausbildung.",
+"Abi – aber mit Maske. Und trotzdem mit Haltung.",
+"„Ich lerne. Wirklich.“ (Innerlich Panik.)",
+"Erste große Etappe geschafft."
+][i]}</div>
+</div>
+</div>`).join("")}
+</div>
+</section>
+
+<section>
+<h2>📚 Kapitel 2 – Uni & Drama</h2>
+<div class="grid">
+${["uni1","uni2","uni3","uni4","uni5"].map((img,i)=>`
+<div class="flip-card" onclick="flip(this)">
+<div class="flip-inner">
+<div class="flip-front"><img src="${img}.jpg"></div>
+<div class="flip-back">${[
+"Bio. Hass. Liebe. Wieder Hass.",
+"Literatur. Einfach nein.",
+"Last Minute? Ja. Aber mit System.",
+"Snacks & Kaugummi = Überlebensstrategie.",
+"Meryem: Motivations-Polizei number 1."
+][i]}</div>
+</div>
+</div>`).join("")}
+</div>
+</section>
+
+<section>
+<h2>🌊 Zwischen Deadlines</h2>
+<div class="grid">
+${["moment1","moment2","moment3","moment4","moment5","moment6","moment7","extra1"].map((img,i)=>`
+<div class="flip-card" onclick="flip(this)">
+<div class="flip-inner">
+<div class="flip-front"><img src="${img}.jpg"></div>
+<div class="flip-back">${[
+"Zwischen Deadlines und Selfcare.",
+"Serienmarathon als Therapie.",
+"Zukunftspläne im Kopf.",
+"Shopping Queen (regulierte Kaufsucht).",
+"Kolonya nie vergessen.",
+"Mit ihr fehlt nie das Lachen.",
+"2. Etage Aufzug 🏃🏽‍♀️💨",
+"Sie priorisiert sich selbst."
+][i]}</div>
+</div>
+</div>`).join("")}
+</div>
+</section>
+
+<section class="final">
+<h2>Und dann…</h2>
+
+<div class="flip-card" onclick="flip(this); celebrate();">
+<div class="flip-inner">
+<div class="flip-front"><img src="extra2.jpg"></div>
+<div class="flip-back">
+<img src="bachelor.jpg" style="width:100%;height:100%;object-fit:cover;border-radius:20px;">
+</div>
+</div>
+</div>
+
+<p>
+Wir waren schon stolz auf dich und sind jetzt noch stolzer,  
+dass du deinen Bachelor gemeistert hast!!  
+<br><br>
+<strong>EMINE: unser Stolz 💛</strong>
+</p>
+
+<h3>Merve<br>Meryem<br>Ilayda</h3>
+</section>
+
+</div>
+
+<script>
+function start(){
+document.querySelector(".hero").style.display="none";
+document.getElementById("content").style.display="block";
+}
+
+function flip(card){
+card.classList.toggle("flipped");
+}
+
+function celebrate(){
+for(let i=0;i<120;i++){
+let c=document.createElement("div");
+c.classList.add("confetti");
+c.style.left=Math.random()*100+"vw";
+c.style.backgroundColor=["#d48a6a","#8da88b","#f5c6aa","#e3a589"][Math.floor(Math.random()*4)];
+c.style.animationDuration=(Math.random()*2+2)+"s";
+document.body.appendChild(c);
+setTimeout(()=>c.remove(),3000);
+}
+}
+
+const music=document.getElementById("bgMusic");
+const musicButton=document.getElementById("musicButton");
+
+function toggleMusic(){
+if(music.paused){
+music.play();
+musicButton.innerHTML="⏸ Musik pausieren";
+}else{
+music.pause();
+musicButton.innerHTML="🎵 Musik starten";
+}
+}
+</script>
+
+</body>
+</html>
