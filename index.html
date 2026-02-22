@@ -14,55 +14,113 @@ font-family:'Inter',sans-serif;
 background:linear-gradient(180deg,#f6efe7,#efe2d4);
 color:#3e2f25;
 overflow-x:hidden;
+text-align:center;
 }
 
 /* SECTIONS */
 .section{
-width:100vw;
-min-height:100vh;
 display:none;
+min-height:100vh;
+padding:60px 30px;
+box-sizing:border-box;
 flex-direction:column;
 align-items:center;
 justify-content:center;
-padding:60px 40px;
-box-sizing:border-box;
-text-align:center;
 }
 
 .section.active{
 display:flex;
-animation:fadeIn 0.8s ease;
+animation:fadeIn 0.7s ease;
 }
 
 @keyframes fadeIn{
-from{opacity:0; transform:scale(0.97);}
-to{opacity:1; transform:scale(1);}
+from{opacity:0; transform:translateY(20px);}
+to{opacity:1; transform:translateY(0);}
 }
 
-/* TEXT */
 h1,h2{
 font-family:'Playfair Display',serif;
-margin-bottom:10px;
+margin-bottom:15px;
 }
 
 .hint{
 font-size:15px;
 color:#b7865e;
-margin-bottom:35px;
+margin-bottom:25px;
 font-family:'Playfair Display',serif;
 opacity:0.8;
 }
 
-/* BUTTON */
+/* IMAGE VIEWER */
+.viewer{
+width:420px;
+height:540px;
+perspective:1000px;
+cursor:pointer;
+margin:20px 0;
+}
+
+.viewer-inner{
+width:100%;
+height:100%;
+position:relative;
+transition:transform 0.6s cubic-bezier(.4,2,.3,1);
+transform-style:preserve-3d;
+}
+
+.viewer.flip .viewer-inner{
+transform:rotateY(180deg);
+}
+
+.front,.back{
+position:absolute;
+width:100%;
+height:100%;
+border-radius:24px;
+overflow:hidden;
+backface-visibility:hidden;
+box-shadow:0 25px 70px rgba(0,0,0,0.2);
+display:flex;
+align-items:center;
+justify-content:center;
+background:white;
+}
+
+.front img{
+width:100%;
+height:100%;
+object-fit:cover;
+}
+
+.back{
+transform:rotateY(180deg);
+padding:30px;
+background:#fffaf4;
+}
+
+.note{
+background:#fffdf9;
+padding:18px;
+border-radius:18px;
+box-shadow:0 6px 20px rgba(0,0,0,0.1);
+font-style:italic;
+line-height:1.5;
+}
+
+/* NAV BUTTONS */
+.nav{
+display:flex;
+gap:20px;
+margin-top:15px;
+}
+
 button{
 background:#d6a77a;
 border:none;
-padding:12px 28px;
+padding:10px 24px;
 border-radius:30px;
 color:white;
-font-weight:500;
 cursor:pointer;
-margin-top:45px;
 transition:all 0.3s ease;
 }
 
@@ -71,122 +129,23 @@ background:#b7865e;
 transform:scale(1.07);
 }
 
-/* GALLERY */
-.gallery{
-display:flex;
-gap:30px;
-flex-wrap:wrap;
-justify-content:center;
-max-width:1100px;
-}
-
-/* CARD */
-.card{
-width:240px;
-height:320px;
-perspective:1000px;
-cursor:pointer;
-animation:float 6s ease-in-out infinite;
-}
-
-@keyframes float{
-0%,100%{transform:translateY(0px);}
-50%{transform:translateY(-6px);}
-}
-
-.card-inner{
-width:100%;
-height:100%;
-position:relative;
-transition:transform 0.6s cubic-bezier(.4,2,.3,1);
-transform-style:preserve-3d;
-}
-
-.card.flip .card-inner{
-transform:rotateY(180deg);
-}
-
-.card-front,.card-back{
-position:absolute;
-width:100%;
-height:100%;
-backface-visibility:hidden;
-border-radius:18px;
-box-shadow:0 15px 40px rgba(0,0,0,0.12);
-overflow:hidden;
-background:white;
-}
-
-.card-front img{
-width:100%;
-height:100%;
-object-fit:cover;
-transition:transform 0.4s ease;
-}
-
-.card:hover .card-front img{
-transform:scale(1.04);
-}
-
-.card-back{
-transform:rotateY(180deg);
-display:flex;
-align-items:center;
-justify-content:center;
-padding:20px;
-background:#fffaf4;
-}
-
-/* NOTE STYLE */
-.note{
-background:#fffdf9;
-padding:16px;
-border-radius:14px;
-box-shadow:0 6px 18px rgba(0,0,0,0.08);
-font-size:14px;
-font-style:italic;
-line-height:1.4;
-}
-
-/* FINAL IMAGE */
-.final-image{
-width:430px;
-height:540px;
-border-radius:24px;
-overflow:hidden;
-box-shadow:0 25px 70px rgba(0,0,0,0.25);
-}
-
-.final-image img{
-width:100%;
-height:100%;
-object-fit:cover;
-}
-
-/* GOLD GLOW */
+/* GOLD TITLE */
 .gold-glow{
-font-size:38px;
+font-size:40px;
 background:linear-gradient(45deg,#d4af37,#f7e7a1,#d4af37);
 -webkit-background-clip:text;
 -webkit-text-fill-color:transparent;
 text-shadow:0 0 25px rgba(212,175,55,0.6);
-margin-bottom:35px;
+margin-bottom:25px;
 }
 
-/* CONFETTI */
+/* CONFETTI EXPLOSION */
 .confetti{
 position:fixed;
 width:10px;
 height:10px;
 border-radius:50%;
-top:-10px;
-animation:fall 4s linear forwards;
-opacity:0.9;
-filter:blur(0.3px);
-}
-
-@keyframes fall{
-to{transform:translateY(100vh) rotate(720deg);}
+pointer-events:none;
 }
 
 /* MUSIC BUTTON */
@@ -207,9 +166,8 @@ z-index:10;
 <source src="music.mpeg" type="audio/mpeg">
 </audio>
 
-<!-- CAMERA SOUND (no extra file) -->
 <audio id="cameraSound">
-<source src="data:audio/wav;base64,UklGRlQAAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YUAAAAA=" type="audio/wav">
+<source src="camera.mpeg" type="audio/mpeg">
 </audio>
 
 <!-- START -->
@@ -222,104 +180,60 @@ z-index:10;
 <!-- ABI -->
 <div class="section" id="s2">
 <h2>Abi Zeit ✨</h2>
-<p class="hint">Klick auf die Bilder ✨</p>
-<div class="gallery">
-<div class="card" onclick="flip(this)"><div class="card-inner">
-<div class="card-front"><img src="abi1.jpg"></div>
-<div class="card-back"><div class="note">Drama Queen, aber mit Lernzetteln.</div></div>
-</div></div>
+<p class="hint">Klick auf das Bild ✨</p>
 
-<div class="card" onclick="flip(this)"><div class="card-inner">
-<div class="card-front"><img src="abi2.jpg"></div>
-<div class="card-back"><div class="note">Abi, aber main character.</div></div>
-</div></div>
-
-<div class="card" onclick="flip(this)"><div class="card-inner">
-<div class="card-front"><img src="abi3.jpg"></div>
-<div class="card-back"><div class="note">„Ich schaffe das.“ (Innerlich: absoluter Stress.)</div></div>
-</div></div>
-
-<div class="card" onclick="flip(this)"><div class="card-inner">
-<div class="card-front"><img src="abi4.jpg"></div>
-<div class="card-back"><div class="note">Plot Twist: Es war nur der Anfang.</div></div>
-</div></div>
+<div class="viewer" onclick="flip(this)">
+<div class="viewer-inner">
+<div class="front"><img id="abiImg"></div>
+<div class="back"><div class="note" id="abiText"></div></div>
 </div>
-<button onclick="next()">Weiter</button>
+</div>
+
+<div class="nav">
+<button onclick="prevImage('abi')">Zurück</button>
+<button onclick="nextImage('abi')">Weiter</button>
+</div>
+
+<button onclick="next()">Kapitel weiter</button>
 </div>
 
 <!-- UNI -->
 <div class="section" id="s3">
 <h2>Uni & Drama 📚</h2>
-<p class="hint">Klick auf die Bilder ✨</p>
-<div class="gallery">
-<div class="card" onclick="flip(this)"><div class="card-inner">
-<div class="card-front"><img src="uni1.jpg"></div>
-<div class="card-back"><div class="note">Bio war aufwändig. Sie war aufwändiger.</div></div>
-</div></div>
+<p class="hint">Klick auf das Bild ✨</p>
 
-<div class="card" onclick="flip(this)"><div class="card-inner">
-<div class="card-front"><img src="uni2.jpg"></div>
-<div class="card-back"><div class="note">„Ich lese das später.“ (Sie las es später. Kurz vor Abgabe.)</div></div>
-</div></div>
-
-<div class="card" onclick="flip(this)"><div class="card-inner">
-<div class="card-front"><img src="uni3.jpg"></div>
-<div class="card-back"><div class="note">2. Etage Aufzug 🏃🏽‍♀️💨</div></div>
-</div></div>
-
-<div class="card" onclick="flip(this)"><div class="card-inner">
-<div class="card-front"><img src="uni4.jpg"></div>
-<div class="card-back"><div class="note">Die eine Hausarbeit. Erst durchgefallen. Dozentin krank. Chaos. Und trotzdem gewonnen.</div></div>
-</div></div>
-
-<div class="card" onclick="flip(this)"><div class="card-inner">
-<div class="card-front"><img src="uni5.jpg"></div>
-<div class="card-back"><div class="note">Ohne Essen geht nichts.</div></div>
-</div></div>
+<div class="viewer" onclick="flip(this)">
+<div class="viewer-inner">
+<div class="front"><img id="uniImg"></div>
+<div class="back"><div class="note" id="uniText"></div></div>
 </div>
+</div>
+
+<div class="nav">
+<button onclick="prevImage('uni')">Zurück</button>
+<button onclick="nextImage('uni')">Weiter</button>
+</div>
+
 <button onclick="next()">Weiter</button>
 </div>
 
 <!-- MOMENTE -->
 <div class="section" id="s4">
 <h2>Emine Energy 🌿</h2>
-<p class="hint">Klick auf die Bilder ✨</p>
-<div class="gallery">
-<div class="card" onclick="flip(this)"><div class="card-inner">
-<div class="card-front"><img src="moment1.jpg"></div>
-<div class="card-back"><div class="note">Zukunftspläne im Kopf. Ruhe im Herzen.</div></div>
-</div></div>
+<p class="hint">Klick auf das Bild ✨</p>
 
-<div class="card" onclick="flip(this)"><div class="card-inner">
-<div class="card-front"><img src="moment2.jpg"></div>
-<div class="card-back"><div class="note">Meryem, Nummer 1 Motivation.</div></div>
-</div></div>
-
-<div class="card" onclick="flip(this)"><div class="card-inner">
-<div class="card-front"><img src="moment3.jpg"></div>
-<div class="card-back"><div class="note">Therapie? Nein, Freunde!</div></div>
-</div></div>
-
-<div class="card" onclick="flip(this)"><div class="card-inner">
-<div class="card-front"><img src="moment4.jpg"></div>
-<div class="card-back"><div class="note">Wenn sie sagt: nur eine Folge.</div></div>
-</div></div>
-
-<div class="card" onclick="flip(this)"><div class="card-inner">
-<div class="card-front"><img src="moment5.jpg"></div>
-<div class="card-back"><div class="note">Main Character Energy.</div></div>
-</div></div>
-
-<div class="card" onclick="flip(this)"><div class="card-inner">
-<div class="card-front"><img src="moment6.jpg"></div>
-<div class="card-back"><div class="note">Mit ihr fehlt nie das Lachen.</div></div>
-</div></div>
-
-<div class="card" onclick="flip(this)"><div class="card-inner">
-<div class="card-front"><img src="moment7.jpg"></div>
-<div class="card-back"><div class="note">Noch mehr Emine Energy ✨</div></div>
-</div></div>
+<div class="viewer" onclick="flip(this)">
+<div class="viewer-inner">
+<div class="front"><img id="momentImg"></div>
+<div class="back"><div class="note" id="momentText"></div></div>
 </div>
+</div>
+
+<div class="nav">
+<button onclick="prevImage('moment')">Zurück</button>
+<button onclick="nextImage('moment')">Weiter</button>
+</div>
+
 <button onclick="next()">Finale</button>
 </div>
 
@@ -327,27 +241,23 @@ z-index:10;
 <div class="section" id="s5">
 <h2 class="gold-glow">EMINE: unser Stolz</h2>
 
-<div class="card" onclick="flip(this); confetti();">
-<div class="card-inner">
-<div class="card-front final-image">
-<img src="extra1.jpg">
-</div>
-<div class="card-back final-image">
-<img src="bachelor.jpg">
-</div>
+<div class="viewer" onclick="flip(this); confettiExplosion();">
+<div class="viewer-inner">
+<div class="front"><img src="extra1.jpg"></div>
+<div class="back"><img src="bachelor.jpg" style="width:100%;height:100%;object-fit:cover;"></div>
 </div>
 </div>
 
-<p style="margin-top:40px;font-size:18px;">
+<p style="margin-top:30px;">
 Diese Drama Queen hat einfach ihren Bachelor gemacht.
 </p>
 
-<p style="margin-top:20px;font-size:18px;">
+<p style="margin-top:15px;">
 Wir waren schon stolz auf dich<br>
 und sind jetzt noch stolzer.
 </p>
 
-<p style="margin-top:40px;">
+<p style="margin-top:30px;">
 Merve<br>Meryem<br>Ilayda
 </p>
 </div>
@@ -362,7 +272,7 @@ document.getElementById("s"+current).classList.add("active");
 
 function flip(card){
 card.classList.toggle("flip");
-const sound=document.getElementById("cameraSound");
+let sound=document.getElementById("cameraSound");
 sound.currentTime=0;
 sound.play();
 }
@@ -371,14 +281,77 @@ function startMusic(){
 document.getElementById("bgMusic").play();
 }
 
-function confetti(){
-for(let i=0;i<120;i++){
+/* GALLERY DATA */
+const abiImages=["abi1.jpg","abi2.jpg","abi3.jpg","abi4.jpg"];
+const abiTexts=[
+"Drama Queen, aber mit Lernzetteln.",
+"Abi, aber main character.",
+"„Ich schaffe das.“ (Innerlich: absoluter Stress.)",
+"Plot Twist: Es war nur der Anfang."
+];
+
+const uniImages=["uni1.jpg","uni2.jpg","uni3.jpg","uni4.jpg","uni5.jpg"];
+const uniTexts=[
+"Bio war aufwändig. Sie war aufwändiger.",
+"„Ich lese das später.“ (Kurz vor Abgabe gelesen.)",
+"2. Etage Aufzug 🏃🏽‍♀️💨",
+"Die eine Hausarbeit. Durchgefallen. Dozentin krank. Trotzdem gewonnen.",
+"Ohne Essen geht nichts."
+];
+
+const momentImages=["moment1.jpg","moment2.jpg","moment3.jpg","moment4.jpg","moment5.jpg","moment6.jpg","moment7.jpg"];
+const momentTexts=[
+"Zukunftspläne im Kopf. Ruhe im Herzen.",
+"Meryem, Nummer 1 Motivation.",
+"Therapie? Nein, Freunde!",
+"Wenn sie sagt: nur eine Folge.",
+"Main Character Energy.",
+"Mit ihr fehlt nie das Lachen.",
+"Noch mehr Emine Energy ✨"
+];
+
+let index={abi:0,uni:0,moment:0};
+
+function update(type){
+document.getElementById(type+"Img").src=window[type+"Images"][index[type]];
+document.getElementById(type+"Text").innerText=window[type+"Texts"][index[type]];
+}
+
+function nextImage(type){
+index[type]=(index[type]+1)%window[type+"Images"].length;
+update(type);
+}
+
+function prevImage(type){
+index[type]=(index[type]-1+window[type+"Images"].length)%window[type+"Images"].length;
+update(type);
+}
+
+update("abi");
+update("uni");
+update("moment");
+
+/* CONFETTI EXPLOSION */
+function confettiExplosion(){
+for(let i=0;i<180;i++){
 let c=document.createElement("div");
 c.classList.add("confetti");
-c.style.left=Math.random()*100+"vw";
 c.style.background=["#f7e7a1","#d6a77a","#f4c6c6","#b7865e"][Math.floor(Math.random()*4)];
+c.style.left="50%";
+c.style.top="50%";
 document.body.appendChild(c);
-setTimeout(()=>{c.remove();},4000);
+
+let angle=Math.random()*2*Math.PI;
+let distance=Math.random()*500;
+let x=Math.cos(angle)*distance;
+let y=Math.sin(angle)*distance;
+
+c.animate([
+{transform:"translate(0,0)",opacity:1},
+{transform:`translate(${x}px,${y}px)`,opacity:0}
+],{duration:1600,easing:"ease-out"});
+
+setTimeout(()=>c.remove(),1600);
 }
 }
 </script>
