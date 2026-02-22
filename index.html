@@ -41,8 +41,8 @@ font-family:'Playfair Display',serif;
 .hint{
 font-size:14px;
 color:#b7865e;
-margin-top:5px;
-opacity:0.8;
+margin-top:6px;
+opacity:0.85;
 font-family:'Playfair Display',serif;
 }
 
@@ -170,10 +170,6 @@ pointer-events:none;
 <source src="music.mp3" type="audio/mpeg">
 </audio>
 
-<audio id="cameraSound" preload="auto">
-<source src="camera.mp3" type="audio/mpeg">
-</audio>
-
 <!-- START -->
 <div class="section active" id="s1">
 <h1>EMINE.</h1>
@@ -202,6 +198,31 @@ pointer-events:none;
 </div>
 
 <button onclick="showSection(3)">Kapitel weiter</button>
+</div>
+
+<!-- FINALE -->
+<div class="section" id="s3">
+<h2 class="gold">EMINE: unser Stolz</h2>
+
+<div class="viewer" onclick="flip(this); confetti();">
+<div class="viewer-inner">
+<div class="front"><img src="extra1.jpg"></div>
+<div class="back"><img src="bachelor.jpg" style="width:100%;height:100%;object-fit:cover;"></div>
+</div>
+</div>
+
+<p style="margin-top:30px;">
+Diese Drama Queen hat einfach ihren Bachelor gemacht.
+</p>
+
+<p style="margin-top:15px;">
+Wir waren schon stolz auf dich<br>
+und sind jetzt noch stolzer.
+</p>
+
+<p style="margin-top:30px;">
+Merve<br>Meryem<br>Ilayda
+</p>
 </div>
 
 <script>
@@ -240,16 +261,33 @@ document.getElementById("s"+n).classList.add("active");
 
 function flip(card){
 card.classList.toggle("flip");
-const sound=document.getElementById("cameraSound");
-if(sound){
-sound.pause();
-sound.currentTime=0;
-sound.play().catch(()=>{});
-}
 }
 
 function startMusic(){
 document.getElementById("bgMusic").play();
+}
+
+function confetti(){
+for(let i=0;i<180;i++){
+let c=document.createElement("div");
+c.classList.add("confetti");
+c.style.background=["#f7e7a1","#d6a77a","#f4c6c6","#b7865e"][Math.floor(Math.random()*4)];
+c.style.left="50%";
+c.style.top="50%";
+document.body.appendChild(c);
+
+let angle=Math.random()*2*Math.PI;
+let distance=Math.random()*500;
+let x=Math.cos(angle)*distance;
+let y=Math.sin(angle)*distance;
+
+c.animate([
+{transform:"translate(0,0)",opacity:1},
+{transform:`translate(${x}px,${y}px)`,opacity:0}
+],{duration:1600,easing:"ease-out"});
+
+setTimeout(()=>c.remove(),1600);
+}
 }
 
 updateGallery("abi");
