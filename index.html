@@ -3,406 +3,278 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>EMINE – unser Stolz 💛</title>
+<title>Emine – Unser Stolz</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 
 <style>
+
 body{
 margin:0;
 font-family:'Inter',sans-serif;
-background:#f6ede6;
-color:#3e2f2b;
-overflow-x:hidden;
+background:linear-gradient(180deg,#f5eee6,#efe2d4);
+color:#3e2f25;
+overflow:hidden;
 }
 
-section{
-padding:120px 20px;
-max-width:1200px;
-margin:auto;
-text-align:center;
+.section{
+width:100vw;
+height:100vh;
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+position:absolute;
+transition:all 0.8s ease;
+opacity:0;
+transform:scale(0.95);
+padding:40px;
+box-sizing:border-box;
+}
+
+.section.active{
+opacity:1;
+transform:scale(1);
+z-index:1;
 }
 
 h1,h2{
 font-family:'Playfair Display',serif;
+text-align:center;
 }
 
-.hero{
-height:100vh;
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-background:linear-gradient(180deg,#f6ede6,#efe2d9);
-}
-
-.hero h1{
-font-size:48px;
-}
-
-.button{
-margin-top:30px;
-padding:14px 30px;
+button{
+background:#d6a77a;
 border:none;
-border-radius:40px;
-background:#d48a6a;
+padding:12px 25px;
+border-radius:30px;
 color:white;
+font-weight:500;
 cursor:pointer;
-font-size:16px;
-transition:0.3s;
+margin-top:30px;
+transition:all 0.3s ease;
 }
 
-.button:hover{
-background:#c17657;
+button:hover{
+background:#b7865e;
+transform:scale(1.05);
 }
 
-.grid{
+.gallery{
 display:flex;
+gap:20px;
 flex-wrap:wrap;
 justify-content:center;
-gap:40px;
 }
 
-.flip-card{
+.card{
 width:260px;
 height:340px;
 perspective:1000px;
 cursor:pointer;
 }
 
-.flip-inner{
-position:relative;
+.card-inner{
 width:100%;
 height:100%;
-transition:transform 0.4s ease;
+position:relative;
+transition:transform 0.5s cubic-bezier(.4,2,.3,1);
 transform-style:preserve-3d;
 }
 
-.flip-card.flipped .flip-inner{
+.card.flip .card-inner{
 transform:rotateY(180deg);
 }
 
-.flip-front, .flip-back{
+.card-front,.card-back{
 position:absolute;
 width:100%;
 height:100%;
 backface-visibility:hidden;
-border-radius:20px;
+border-radius:18px;
+box-shadow:0 15px 35px rgba(0,0,0,0.15);
 overflow:hidden;
-box-shadow:0 15px 30px rgba(0,0,0,0.08);
 background:white;
 }
 
-.flip-front img{
+.card-front img{
 width:100%;
 height:100%;
 object-fit:cover;
 }
 
-.flip-back{
-display:flex;
-justify-content:center;
-align-items:center;
-padding:25px;
+.card-back{
 transform:rotateY(180deg);
-font-size:15px;
-line-height:1.5;
+display:flex;
+align-items:center;
+justify-content:center;
+padding:20px;
+text-align:center;
+font-size:14px;
+background:#fff7ef;
 }
 
-.music-btn{
-position:fixed;
-bottom:20px;
-right:20px;
-background:#d48a6a;
-color:white;
-border:none;
-padding:12px 20px;
-border-radius:30px;
-cursor:pointer;
-z-index:1000;
-}
-
-/* FINALE */
-.final-card{
+.final-image{
 width:420px;
 height:520px;
-margin:60px auto;
-perspective:1200px;
-cursor:pointer;
-transition:0.4s ease;
+border-radius:20px;
+overflow:hidden;
+box-shadow:0 20px 50px rgba(0,0,0,0.25);
+transition:transform 1.5s ease;
 }
 
-.final-card:hover{
+.final-image img{
+width:100%;
+height:100%;
+object-fit:cover;
+}
+
+.final-image:hover{
 transform:scale(1.05);
 }
 
-.final-inner{
-position:relative;
-width:100%;
-height:100%;
-transition:transform 0.6s ease;
-transform-style:preserve-3d;
-}
-
-.final-card.flipped .final-inner{
-transform:rotateY(180deg) scale(1.03);
-}
-
-.final-front, .final-back{
-position:absolute;
-width:100%;
-height:100%;
-backface-visibility:hidden;
-border-radius:25px;
-overflow:hidden;
-box-shadow:0 25px 60px rgba(0,0,0,0.15);
-}
-
-.final-front img,
-.final-back img{
-width:100%;
-height:100%;
-object-fit:cover;
-}
-
-.final-back{
-transform:rotateY(180deg);
-}
-
-/* Konfetti */
 .confetti{
 position:fixed;
 width:10px;
 height:10px;
+background:red;
 top:-10px;
 animation:fall 3s linear forwards;
 }
 
 @keyframes fall{
-to{
-transform:translateY(100vh) rotate(720deg);
-opacity:0;
+to{transform:translateY(100vh) rotate(360deg);}
 }
+
+.music-btn{
+position:fixed;
+top:20px;
+right:20px;
+z-index:5;
 }
+
 </style>
 </head>
 
 <body>
 
-<audio id="bgMusic">
-<source src="music.mp3" type="audio/mpeg">
+<button class="music-btn" onclick="playMusic()">🎵 Musik</button>
+
+<audio id="bgMusic" loop>
+<source src="music.mpeg" type="audio/mpeg">
 </audio>
 
-<button class="music-btn" onclick="toggleMusic()" id="musicButton">
-🎵 Musik starten
-</button>
-
-<section class="hero">
-<h1>Kapitel 1 – Drama Queen 👑</h1>
-<p>Von Abi zu Bachelor.</p>
-<button class="button" onclick="start()">Weiter</button>
-</section>
-
-<div id="content" style="display:none;">
-
-<section>
-<h2>Abi Zeit ✨</h2>
-<div class="grid">
-
-<div class="flip-card" onclick="flip(this)">
-<div class="flip-inner">
-<div class="flip-front"><img src="abi1.jpg"></div>
-<div class="flip-back">17 Jahre alt. Drama Queen in Ausbildung.</div>
-</div>
+<div class="section active" id="s1">
+<h1>EMINE.</h1>
+<p>Unser Stolz. Unser Herz. Unsere Drama Queen.</p>
+<button onclick="next()">Weiter</button>
 </div>
 
-<div class="flip-card" onclick="flip(this)">
-<div class="flip-inner">
-<div class="flip-front"><img src="abi2.jpg"></div>
-<div class="flip-back">Abi mit Maske – aber mit Stil.</div>
+<div class="section" id="s2">
+<h2>Kapitel 1 – Starterpakt</h2>
+<p>Kolonya & Kaugummi dürfen niemals fehlen.<br>
+MacBook ist ihr größter Schatz.<br>
+Shopping Queen (regulierte Kaufsucht).<br>
+Serien = ihr ein und alles (mit sehr viel Drama).<br>
+Mit ihr fehlt nie das Lachen.</p>
+<button onclick="next()">Weiter</button>
+</div>
+
+<div class="section" id="s3">
+<h2>Kapitel 2 – Uni & Drama</h2>
+<div class="gallery">
+
+<div class="card" onclick="flip(this)">
+<div class="card-inner">
+<div class="card-front"><img src="uni1.jpg"></div>
+<div class="card-back">Drama Queen Modus aktiviert 👑</div>
 </div>
 </div>
 
-<div class="flip-card" onclick="flip(this)">
-<div class="flip-inner">
-<div class="flip-front"><img src="abi3.jpg"></div>
-<div class="flip-back">„Ich lerne wirklich.“ (innerlich Panik)</div>
+<div class="card" onclick="flip(this)">
+<div class="card-inner">
+<div class="card-front"><img src="uni2.jpg"></div>
+<div class="card-back">Bio = Hassliebe. Aber sie hat es gerockt.</div>
 </div>
 </div>
 
-<div class="flip-card" onclick="flip(this)">
-<div class="flip-inner">
-<div class="flip-front"><img src="abi4.jpg"></div>
-<div class="flip-back">Erste große Etappe geschafft.</div>
+<div class="card" onclick="flip(this)">
+<div class="card-inner">
+<div class="card-front"><img src="uni3.jpg"></div>
+<div class="card-back">2. Etage Aufzug 🏃🏽‍♀️💨</div>
 </div>
 </div>
 
-</div>
-</section>
-
-<section>
-<h2>Kapitel 2 – Uni & Drama 📚</h2>
-<div class="grid">
-
-<div class="flip-card" onclick="flip(this)">
-<div class="flip-inner">
-<div class="flip-front"><img src="uni1.jpg"></div>
-<div class="flip-back">Bio – Hass Liebe. Mehr Hass. Dann wieder Liebe.</div>
+<div class="card" onclick="flip(this)">
+<div class="card-inner">
+<div class="card-front"><img src="uni4.jpg"></div>
+<div class="card-back">Die eine Hausarbeit. Erst durchgefallen. Dozentin krank. Chaos. Und trotzdem gewonnen.</div>
 </div>
 </div>
 
-<div class="flip-card" onclick="flip(this)">
-<div class="flip-inner">
-<div class="flip-front"><img src="uni2.jpg"></div>
-<div class="flip-back">Literatur. Texte. Noch mehr Texte.</div>
-</div>
-</div>
-
-<div class="flip-card" onclick="flip(this)">
-<div class="flip-inner">
-<div class="flip-front"><img src="uni3.jpg"></div>
-<div class="flip-back">Beides gelernt. Nicht immer last minute. Aber manchmal.</div>
-</div>
-</div>
-
-<div class="flip-card" onclick="flip(this)">
-<div class="flip-inner">
-<div class="flip-front"><img src="uni4.jpg"></div>
-<div class="flip-back">Snacks & Kaugummi = Überlebensmodus.</div>
-</div>
-</div>
-
-<div class="flip-card" onclick="flip(this)">
-<div class="flip-inner">
-<div class="flip-front"><img src="uni5.jpg"></div>
-<div class="flip-back">Meryem – number 1 Support.</div>
+<div class="card" onclick="flip(this)">
+<div class="card-inner">
+<div class="card-front"><img src="uni5.jpg"></div>
+<div class="card-back">Literatur – Endgegner.</div>
 </div>
 </div>
 
 </div>
-</section>
-
-<section>
-<h2>Kapitel 3 – Selfcare & Zukunft 🌿</h2>
-<div class="grid">
-
-<div class="flip-card" onclick="flip(this)">
-<div class="flip-inner">
-<div class="flip-front"><img src="moment1.jpg"></div>
-<div class="flip-back">Selfcare lernen.</div>
-</div>
+<button onclick="next()">Weiter</button>
 </div>
 
-<div class="flip-card" onclick="flip(this)">
-<div class="flip-inner">
-<div class="flip-front"><img src="moment2.jpg"></div>
-<div class="flip-back">Zukunftspläne im Kopf.</div>
-</div>
-</div>
-
-<div class="flip-card" onclick="flip(this)">
-<div class="flip-inner">
-<div class="flip-front"><img src="moment3.jpg"></div>
-<div class="flip-back">Shopping Queen (regulierte Kaufsucht).</div>
-</div>
+<div class="section" id="s4">
+<h2>Kapitel 3 – Selfcare & Zukunft</h2>
+<p>Selfcare. Sich selbst priorisieren. Zukunftspläne.<br>
+Wir waren schon stolz auf dich und sind jetzt noch stolzer, dass du deinen Bachelor gemeistert hast!!</p>
+<button onclick="next()">Finale</button>
 </div>
 
-<div class="flip-card" onclick="flip(this)">
-<div class="flip-inner">
-<div class="flip-front"><img src="moment4.jpg"></div>
-<div class="flip-back">Serien = Drama Therapie.</div>
-</div>
-</div>
+<div class="section" id="s5">
+<h2>EMINE: unser Stolz</h2>
 
-<div class="flip-card" onclick="flip(this)">
-<div class="flip-inner">
-<div class="flip-front"><img src="moment5.jpg"></div>
-<div class="flip-back">Kolonya & MacBook = Starterpack.</div>
-</div>
-</div>
-
-<div class="flip-card" onclick="flip(this)">
-<div class="flip-inner">
-<div class="flip-front"><img src="moment6.jpg"></div>
-<div class="flip-back">Mit ihr fehlt nie das Lachen.</div>
-</div>
-</div>
-
-<div class="flip-card" onclick="flip(this)">
-<div class="flip-inner">
-<div class="flip-front"><img src="moment7.jpg"></div>
-<div class="flip-back">2. Etage Aufzug 🏃🏽‍♀️💨</div>
-</div>
-</div>
-
-</div>
-</section>
-
-<section>
-<h2 style="font-size:38px;">Finale 💛</h2>
-
-<div class="final-card" onclick="flip(this); celebrate();">
-<div class="final-inner">
-<div class="final-front">
+<div class="card" onclick="flip(this)">
+<div class="card-inner">
+<div class="card-front final-image">
 <img src="extra1.jpg">
 </div>
-<div class="final-back">
+<div class="card-back final-image">
 <img src="bachelor.jpg">
 </div>
 </div>
 </div>
 
-<p style="margin-top:60px;font-size:22px;line-height:1.6;">
-Wir waren schon stolz auf dich und sind jetzt noch stolzer,<br>
-dass du deinen Bachelor gemeistert hast!!<br><br>
-<strong style="font-size:26px;">EMINE: unser Stolz 💛</strong>
-</p>
-
-<p style="margin-top:40px;font-size:18px;">
-Merve<br>
-Meryem<br>
-Ilayda
-</p>
-
-</section>
-
+<button onclick="confetti()">❤️ Für immer stolz</button>
 </div>
 
 <script>
-function start(){
-document.querySelector(".hero").style.display="none";
-document.getElementById("content").style.display="block";
+
+let current=1;
+function next(){
+document.getElementById("s"+current).classList.remove("active");
+current++;
+document.getElementById("s"+current).classList.add("active");
 }
 
 function flip(card){
-card.classList.toggle("flipped");
+card.classList.toggle("flip");
 }
 
-function celebrate(){
-for(let i=0;i<120;i++){
+function playMusic(){
+document.getElementById("bgMusic").play();
+}
+
+function confetti(){
+for(let i=0;i<100;i++){
 let c=document.createElement("div");
 c.classList.add("confetti");
 c.style.left=Math.random()*100+"vw";
-c.style.backgroundColor=["#d48a6a","#8da88b","#f5c6aa","#e3a589"][Math.floor(Math.random()*4)];
-c.style.animationDuration=(Math.random()*2+2)+"s";
+c.style.background=["#d6a77a","#b7865e","#f7d7b5","#c48c5a"][Math.floor(Math.random()*4)];
 document.body.appendChild(c);
-setTimeout(()=>c.remove(),3000);
+setTimeout(()=>{c.remove();},3000);
 }
 }
 
-function toggleMusic(){
-let music=document.getElementById("bgMusic");
-let btn=document.getElementById("musicButton");
-music.volume=1;
-
-if(music.paused){
-music.play();
-btn.innerHTML="⏸ Musik pausieren";
-}else{
-music.pause();
-btn.innerHTML="🎵 Musik starten";
-}
-}
 </script>
 
 </body>
