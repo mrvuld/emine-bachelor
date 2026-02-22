@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Emine – Unser Stolz 💛</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+body{
+margin:0;
+font-family:'Inter',sans-serif;
+background:#fff6ee;
+color:#3a2e2a;
+overflow-x:hidden;
+}
+
+section{
+padding:100px 20px;
+max-width:1100px;
+margin:auto;
+text-align:center;
+}
+
+h1,h2{
+font-family:'Playfair Display',serif;
+}
+
+.hero{
+height:100vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+background:linear-gradient(180deg,#fff6ee,#f8e1d6);
+}
+
+.button{
+margin-top:20px;
+padding:12px 25px;
+border:none;
+border-radius:30px;
+background:#d48a6a;
+color:white;
+cursor:pointer;
+}
+
+.grid{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:40px;
+}
+
+.flip-card{
+width:260px;
+height:330px;
+perspective:1000px;
+cursor:pointer;
+}
+
+.flip-inner{
+position:relative;
+width:100%;
+height:100%;
+transition:transform 0.5s ease;
+transform-style:preserve-3d;
+}
+
+.flip-card.flipped .flip-inner{
+transform:rotateY(180deg);
+}
+
+.flip-front, .flip-back{
+position:absolute;
+width:100%;
+height:100%;
+backface-visibility:hidden;
+border-radius:20px;
+overflow:hidden;
+box-shadow:0 10px 25px rgba(0,0,0,0.1);
+}
+
+.flip-front img{
+width:100%;
+height:100%;
+object-fit:cover;
+}
+
+.flip-back{
+background:white;
+display:flex;
+justify-content:center;
+align-items:center;
+padding:20px;
+transform:rotateY(180deg);
+text-align:center;
+}
+
+.music-btn{
+position:fixed;
+bottom:20px;
+right:20px;
+background:#d48a6a;
+color:white;
+border:none;
+padding:10px 18px;
+border-radius:30px;
+cursor:pointer;
+}
+
+.confetti{
+position:fixed;
+width:8px;
+height:8px;
+top:-10px;
+animation:fall 3s linear forwards;
+}
+
+@keyframes fall{
+to{transform:translateY(100vh) rotate(720deg);opacity:0;}
+}
+</style>
+</head>
+
+<body>
+
+<audio id="bgMusic">
+<source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<button class="music-btn" onclick="toggleMusic()" id="musicButton">
+🎵 Musik starten
+</button>
+
+<section class="hero">
+<h1>Manche studieren Lehramt…</h1>
+<p>Und manche sind einfach Emine.</p>
+<button class="button" onclick="start()">Weiter</button>
+</section>
+
+<div id="content" style="display:none;">
+
+<section>
+<h2>🌿 Abi</h2>
+<div class="grid">
+
+<div class="flip-card" onclick="flip(this)">
+<div class="flip-inner">
+<div class="flip-front"><img src="abi1.jpg"></div>
+<div class="flip-back">17 Jahre alt. Drama Queen in Ausbildung.</div>
+</div>
+</div>
+
+<div class="flip-card" onclick="flip(this)">
+<div class="flip-inner">
+<div class="flip-front"><img src="abi2.jpg"></div>
+<div class="flip-back">Abi – aber mit Maske. Und trotzdem mit Haltung.</div>
+</div>
+</div>
+
+<div class="flip-card" onclick="flip(this)">
+<div class="flip-inner">
+<div class="flip-front"><img src="abi3.jpg"></div>
+<div class="flip-back">„Ich lerne. Wirklich.“ (Innerlich Panik.)</div>
+</div>
+</div>
+
+<div class="flip-card" onclick="flip(this)">
+<div class="flip-inner">
+<div class="flip-front"><img src="abi4.jpg"></div>
+<div class="flip-back">Erste große Etappe geschafft.</div>
+</div>
+</div>
+
+</div>
+</section>
+
+<section>
+<h2>📚 Uni & Drama</h2>
+<div class="grid">
+
+<div class="flip-card" onclick="flip(this)">
+<div class="flip-inner">
+<div class="flip-front"><img src="uni1.jpg"></div>
+<div class="flip-back">Bio. Hass. Liebe. Wieder Hass.</div>
+</div>
+</div>
+
+<div class="flip-card" onclick="flip(this)">
+<div class="flip-inner">
+<div class="flip-front"><img src="uni2.jpg"></div>
+<div class="flip-back">Literatur. Einfach nein.</div>
+</div>
+</div>
+
+<div class="flip-card" onclick="flip(this)">
+<div class="flip-inner">
+<div class="flip-front"><img src="uni3.jpg"></div>
+<div class="flip-back">Last Minute? Ja. Aber mit System.</div>
+</div>
+</div>
+
+<div class="flip-card" onclick="flip(this)">
+<div class="flip-inner">
+<div class="flip-front"><img src="uni4.jpg"></div>
+<div class="flip-back">Snacks & Kaugummi = Überlebensstrategie.</div>
+</div>
+</div>
+
+<div class="flip-card" onclick="flip(this)">
+<div class="flip-inner">
+<div class="flip-front"><img src="uni5.jpg"></div>
+<div class="flip-back">Meryem: Motivations-Polizei number 1.</div>
+</div>
+</div>
+
+</div>
+</section>
+
+<section>
+<h2>🌊 Zwischen Deadlines</h2>
+<div class="grid">
+
+<div class="flip-card" onclick="flip(this)">
+<div class="flip-inner">
+<div class="flip-front"><img src="moment1.jpg"></div>
+<div class="flip-back">Zwischen Deadlines und Selfcare.</div>
+</div>
+</div>
+
+<div class="flip-card" onclick="flip(this)">
+<div class="flip-inner">
+<div class="flip-front"><img src="moment2.jpg"></div>
+<div class="flip-back">Serienmarathon als Therapie.</div>
+</div>
+</div>
+
+<div class="flip-card" onclick="flip(this)">
+<div class="flip-inner">
+<div class="flip-front"><img src="moment3.jpg"></div>
+<div class="flip-back">Zukunftspläne im Kopf.</div>
+</div>
+</div>
+
+<div class="flip-card" onclick="flip(this)">
+<div class="flip-inner">
+<div class="flip-front"><img src="moment4.jpg"></div>
+<div class="flip-back">Shopping Queen (regulierte Kaufsucht).</div>
+</div>
+</div>
+
+<div class="flip-card" onclick="flip(this)">
+<div class="flip-inner">
+<div class="flip-front"><img src="moment5.jpg"></div>
+<div class="flip-back">Kolonya nie vergessen.</div>
+</div>
+</div>
+
+<div class="flip-card" onclick="flip(this)">
+<div class="flip-inner">
+<div class="flip-front"><img src="moment6.jpg"></div>
+<div class="flip-back">Mit ihr fehlt nie das Lachen.</div>
+</div>
+</div>
+
+<div class="flip-card" onclick="flip(this)">
+<div class="flip-inner">
+<div class="flip-front"><img src="moment7.jpg"></div>
+<div class="flip-back">2. Etage Aufzug 🏃🏽‍♀️💨</div>
+</div>
+</div>
+
+<div class="flip-card" onclick="flip(this)">
+<div class="flip-inner">
+<div class="flip-front"><img src="extra1.jpg"></div>
+<div class="flip-back">Sie priorisiert sich selbst.</div>
+</div>
+</div>
+
+</div>
+</section>
+
+<section>
+<h2>Und dann…</h2>
+
+<div class="flip-card" onclick="flip(this); celebrate();">
+<div class="flip-inner">
+<div class="flip-front"><img src="extra2.jpg"></div>
+<div class="flip-back"><img src="bachelor.jpg"></div>
+</div>
+</div>
+
+<p>
+Wir waren schon stolz auf dich und sind jetzt noch stolzer,  
+dass du deinen Bachelor gemeistert hast!!  
+<br><br>
+<strong>EMINE: unser Stolz 💛</strong>
+</p>
+
+<h3>Merve<br>Meryem<br>Ilayda</h3>
+
+</section>
+
+</div>
+
+<script>
+function start(){
+document.querySelector(".hero").style.display="none";
+document.getElementById("content").style.display="block";
+}
+
+function flip(card){
+card.classList.toggle("flipped");
+}
+
+function celebrate(){
+for(let i=0;i<100;i++){
+let c=document.createElement("div");
+c.classList.add("confetti");
+c.style.left=Math.random()*100+"vw";
+c.style.backgroundColor=["#d48a6a","#8da88b","#f5c6aa","#e3a589"][Math.floor(Math.random()*4)];
+c.style.animationDuration=(Math.random()*2+2)+"s";
+document.body.appendChild(c);
+setTimeout(()=>c.remove(),3000);
+}
+}
+
+function toggleMusic(){
+let music=document.getElementById("bgMusic");
+let btn=document.getElementById("musicButton");
+
+if(music.paused){
+music.play();
+btn.innerHTML="⏸ Musik pausieren";
+}else{
+music.pause();
+btn.innerHTML="🎵 Musik starten";
+}
+}
+</script>
+
+</body>
+</html>
